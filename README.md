@@ -24,7 +24,7 @@ Orkestri generates a consistent, module-based structure for Laravel applications
 ## Requirements
 
 - **PHP** ^8.1
-- **Laravel** 10.x or 11.x (auto-discovered via Composer)
+- **Laravel** 10.x, 11.x or 12.x (auto-discovered via Composer)
 
 ---
 
