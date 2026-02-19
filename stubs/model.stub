@@ -1,0 +1,21 @@
+<?php
+
+namespace {{ namespace }};
+
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+
+class {{ model }} extends Model
+{
+    use HasFactory;
+
+    protected $table = '{{ table }}';
+
+    protected $fillable = [
+        //
+    ];
+
+    protected $casts = [
+        //
+    ];
+}

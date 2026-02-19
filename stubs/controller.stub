@@ -1,0 +1,19 @@
+<?php
+
+namespace {{ namespace }};
+
+use App\Http\Controllers\Controller;
+use App\{{ basePath }}\{{ module }}\Domain\Services\{{ service }};
+use App\{{ basePath }}\{{ module }}\Http\Requests\{{ request }};
+use App\{{ basePath }}\{{ module }}\Http\Resources\{{ resource }};
+use Illuminate\Http\Request;
+use LucasKaiut\Orkestri\Traits\ControllerTrait;
+
+class {{ controller }} extends Controller
+{
+    use ControllerTrait;
+
+    protected string $service = {{ service }}::class;
+    protected string $resource = {{ resource }}::class;
+    protected string $request = {{ request }}::class;
+}
