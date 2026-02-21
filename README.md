@@ -10,6 +10,7 @@ Orkestri generates a consistent, module-based structure for Laravel applications
 
 - [Requirements](#requirements)
 - [Installation](#installation)
+- [Web UI](#web-ui)
 - [Configuration](#configuration)
 - [How It Works](#how-it-works)
 - [Commands](#commands)
@@ -37,6 +38,34 @@ composer require lucaskaiut/orkestri
 ```
 
 The package registers its service provider automatically (Laravel package discovery). No need to add it to `config/app.php`.
+
+---
+
+## Web UI
+
+After installing the package, a web route is available for creating and managing modules via the browser. You can define the module name and its fields, create the module, run migrations from the UI, and obtain a fully functional CRUD API with the same generated architecture (controllers, services, models, migrations, resources, requests, and API routes).
+
+### Module list
+
+The module list shows all created modules. For each module you can run the migration directly from the UI. Modules that have not yet been migrated show a button to execute the migration; after running it, the list reflects the migrated state.
+
+| Pending migration | Migration executed |
+|-------------------|---------------------|
+| ![Module list with migrate button](assets/module_grid_migrate.png) | ![Module list with migration executed](assets/module_grid_migrated.png) |
+
+### Creating a module
+
+Use the creation form to set the module name and define its fields (name and type). The UI generates the corresponding migration columns and the full module structure.
+
+![Module creation form with fields](assets/module_form.png)
+
+### Module view
+
+Once a module is created and its migration has been run, you get a ready-to-use CRUD endpoint. The module view summarizes the generated structure and the available API.
+
+![Module view](assets/module_view.png)
+
+Workflow: **Create module (name + fields) → Run migration (UI) → Use the CRUD API** with no extra manual scaffolding.
 
 ---
 
