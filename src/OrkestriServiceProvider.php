@@ -18,7 +18,14 @@ class OrkestriServiceProvider extends ServiceProvider
     {
         $this->loadModuleRoutes();
         $this->loadModuleMigrations();
-    
+        $this->loadMigrationsFrom(__DIR__ . '/../database/migrations');
+        $this->loadRoutesFrom(__DIR__ . '/../routes/web.php');
+        $this->loadTranslationsFrom(__DIR__ . '/../languages', 'orkestri');
+        $this->loadViewsFrom(
+            __DIR__ . '/../resources/views',
+            'orkestri'
+        );
+
         $this->publishes([
             __DIR__ . '/../config/orkestri.php' => config_path('orkestri.php'),
         ], 'orkestri-config');

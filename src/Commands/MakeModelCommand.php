@@ -3,8 +3,7 @@
 namespace LucasKaiut\Orkestri\Commands;
 
 use Illuminate\Console\Command;
-use Illuminate\Support\Facades\File;
-use Illuminate\Support\Str;
+use LucasKaiut\Orkestri\Services\ModuleService;
 
 class MakeModelCommand extends Command
 {
@@ -13,44 +12,10 @@ class MakeModelCommand extends Command
 
     public function handle(): void
     {
-        $module = Str::studly($this->argument('module'));
-        $modelName = $this->argument('name')
-            ? Str::studly($this->argument('name'))
-            : $module;
+        $name = $this->argument('module');
 
-        $basePath = config('orkestri.base_path', 'Modules');
+        app(ModuleService::class)->createModule($name);
 
-        $modelDirectory = base_path(
-            "app/{$basePath}/{$module}/Domain/Models"
-        );
-
-        $modelPath = "{$modelDirectory}/{$modelName}.php";
-
-        if (File::exists($modelPath)) {
-            $this->error("Model already exists.");
-            return;
-        }
-
-        File::ensureDirectoryExists($modelDirectory);
-
-        $stub = $this->getStub();
-
-        $namespace = "App\\{$basePath}\\{$module}\\Domain\\Models";
-        $table = Str::snake(Str::pluralStudly($modelName));
-
-        $content = str_replace(
-            ['{{ namespace }}', '{{ model }}', '{{ table }}'],
-            [$namespace, $modelName, $table],
-            $stub
-        );
-
-        File::put($modelPath, $content);
-
-        $this->info("Model {$modelName} created successfully.");
-    }
-
-    protected function getStub(): string
-    {
-        return file_get_contents(__DIR__ . '/../../stubs/model.stub');
+        $this->info("Model {$name} created successfully.");
     }
 }

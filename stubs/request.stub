@@ -14,7 +14,9 @@ class {{ request }} extends FormRequest
     public function rules(): array
     {
         return [
-            //
+{{ rules }}
         ];
     }
+
+{{ prepareForValidation }}
 }

@@ -11,7 +11,7 @@ class {{ model }} extends Model
 
     protected $table = '{{ table }}';
 
-    protected $fillable = [
+    protected $guarded = [
         //
     ];
 

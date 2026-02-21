@@ -3,8 +3,7 @@
 namespace LucasKaiut\Orkestri\Commands;
 
 use Illuminate\Console\Command;
-use Illuminate\Support\Facades\File;
-use Illuminate\Support\Str;
+use LucasKaiut\Orkestri\Services\ModuleService;
 
 class MakeResourceCommand extends Command
 {
@@ -13,44 +12,10 @@ class MakeResourceCommand extends Command
 
     public function handle(): void
     {
-        $module = Str::studly($this->argument('module'));
-        $resourceName = $this->argument('name')
-            ? Str::studly($this->argument('name'))
-            : "{$module}Resource";
+        $name = $this->argument('module');
 
-        $basePath = config('orkestri.base_path', 'Modules');
+        app(ModuleService::class)->createResource($name);
 
-        $resourcePath = base_path(
-            "app/{$basePath}/{$module}/Http/Resources/{$resourceName}.php"
-        );
-
-        if (File::exists($resourcePath)) {
-            $this->error("Resource already exists.");
-            return;
-        }
-
-        File::ensureDirectoryExists(
-            base_path("app/{$basePath}/{$module}/Http/Resources")
-        );
-
-        $stub = $this->getStub();
-
-        $content = str_replace(
-            ['{{ namespace }}', '{{ resource }}'],
-            [
-                "App\\{$basePath}\\{$module}\\Http\\Resources",
-                $resourceName,
-            ],
-            $stub
-        );
-
-        File::put($resourcePath, $content);
-
-        $this->info("Resource {$resourceName} created successfully.");
-    }
-
-    protected function getStub(): string
-    {
-        return file_get_contents(__DIR__ . '/../../stubs/resource.stub');
+        $this->info("Resource {$name} created successfully.");
     }
 }
