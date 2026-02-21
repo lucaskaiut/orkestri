@@ -43,7 +43,7 @@ The package registers its service provider automatically (Laravel package discov
 
 ## Web UI
 
-After installing the package, a web route is available for creating and managing modules via the browser. You can define the module name and its fields, create the module, run migrations from the UI, and obtain a fully functional CRUD API with the same generated architecture (controllers, services, models, migrations, resources, requests, and API routes).
+After installing the package, a web route called /orkestri/modules is available for creating and managing modules via the browser. You can define the module name and its fields, create the module, run migrations from the UI, and obtain a fully functional CRUD API with the same generated architecture (controllers, services, models, migrations, resources, requests, and API routes).
 
 ### Module list
 
