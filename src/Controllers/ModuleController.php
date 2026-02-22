@@ -27,14 +27,15 @@ class ModuleController extends Controller
 
     public function create()
     {
-        return view('orkestri::pages.create-module');
+        $modules = $this->service->all(['*'], ['fields']);
+        return view('orkestri::pages.create-module', compact('modules'));
     }
 
     public function edit(Module $module)
     {
         $module->load('fields');
-
-        return view('orkestri::pages.edit-module', compact('module'));
+        $modules = $this->service->all(['*'], ['fields']);
+        return view('orkestri::pages.edit-module', compact('module', 'modules'));
     }
 
     public function store(ModuleRequest $request)

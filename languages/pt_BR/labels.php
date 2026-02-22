@@ -41,4 +41,9 @@ return [
     'migration_status' => 'Status da Migration',
     'run_migration' => 'Executar Migration',
     'migrated' => 'Migration executada',
+    'relationships' => 'Relacionamentos',
+    'add_relationship' => 'Adicionar Relacionamento',
+    'no_relationships' => 'Nenhum relacionamento adicionado ainda. Clique em "Adicionar Relacionamento" para começar a definir relacionamentos entre seus módulos.',
+    'add_first_relationship' => 'Adicionar Primeiro Relacionamento',
+    'relationships_hint' => 'Defina relacionamentos entre seus módulos para estabelecer conexões e associações. Por exemplo, um módulo "User" pode ter um relacionamento "hasMany" com um módulo "Post", indicando que um usuário pode ter vários posts.',
 ];

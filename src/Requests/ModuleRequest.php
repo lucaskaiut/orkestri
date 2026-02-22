@@ -16,6 +16,8 @@ class ModuleRequest extends FormRequest
         return [
             'name' => ['required', 'string', 'max:255'],
             'description' => ['nullable', 'string'],
+
+            // Fields
             'fields' => ['nullable', 'array'],
             'fields.*.name' => ['required', 'string', 'max:255'],
             'fields.*.type' => ['required', 'string', 'in:' . implode(',', $this->allowedTypes())],
@@ -23,27 +25,20 @@ class ModuleRequest extends FormRequest
             'fields.*.nullable' => ['nullable', 'boolean'],
             'fields.*.required' => ['nullable', 'boolean'],
             'fields.*.default' => ['nullable', 'string'],
+
+            // Relationships
+            'relationships' => ['nullable', 'array'],
+            'relationships.*.type' => ['required', 'string', 'in:' . implode(',', $this->allowedRelationshipTypes())],
+            'relationships.*.related_module' => ['required', 'integer', 'exists:modules,id'],
+            'relationships.*.foreign_key' => ['nullable', 'string', 'max:255'],
+            'relationships.*.owner_key' => ['nullable', 'string', 'max:255'],
+            'relationships.*.relation_name' => ['nullable', 'string', 'max:255', 'regex:/^[a-z_][a-z0-9_]*$/'],
         ];
     }
-    public function attributes(): array
+
+    private function allowedRelationshipTypes(): array
     {
-        $attributes = [
-            'name' => __('orkestri::labels.name'),
-            'description' => __('orkestri::labels.description'),
-            'fields' => __('orkestri::labels.fields'),
-        ];
-
-        foreach ($this->input('fields', []) as $index => $field) {
-            $fieldLabel = $field['name'] ?? "#" . ($index + 1);
-            $attributes["fields.{$index}.name"] = __('orkestri::labels.name') . " ({$fieldLabel})";
-            $attributes["fields.{$index}.type"] = __('orkestri::labels.type') . " ({$fieldLabel})";
-            $attributes["fields.{$index}.label"] = __('orkestri::labels.label') . " ({$fieldLabel})";
-            $attributes["fields.{$index}.nullable"] = __('orkestri::labels.nullable') . " ({$fieldLabel})";
-            $attributes["fields.{$index}.required"] = __('orkestri::labels.required') . " ({$fieldLabel})";
-            $attributes["fields.{$index}.default"] = __('orkestri::labels.default') . " ({$fieldLabel})";
-        }
-
-        return $attributes;
+        return ['belongsTo', 'hasMany', 'hasOne', 'belongsToMany'];
     }
 
     protected function prepareForValidation(): void
